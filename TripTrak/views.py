@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 
 from .models import Trip, Note
 
 # Create your views here.
+
 class HomeView(TemplateView):
     template_name = 'TripTrak/index.html'
 
+
+@login_required
 def trips_list(request):
-    trips = Trip.objects.filter(owner=request.user)
+    trips = Trip.objects.filter(owner=request.user).order_by('-end_date')
     context = {
         'trips': trips
     }

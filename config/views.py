@@ -1,6 +1,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
 
 class SignUpView(CreateView):
     form_class = UserCreationForm
