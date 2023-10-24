@@ -35,11 +35,18 @@ class TripDetailView(DetailView):
         notes = trip.notes.all()        
         context["notes"] = notes 
         return context
-    
+
+class TripUpdateView(UpdateView):
+    model = Trip
+    success_url = reverse_lazy('trip-list')
+    fields = ['city', 'country', 'start_date', 'end_date']
+
+class TripDeleteView(DeleteView):
+    model = Trip
+    success_url = reverse_lazy('trip-list')
 
 class NoteDetailView(DetailView):
     model = Note
-
 
 class NoteListView(ListView):
     model = Note
@@ -47,7 +54,6 @@ class NoteListView(ListView):
     def get_queryset(self):
         queryset = Note.objects.filter(trip__owner=self.request.user)
         return queryset
-    
 
 class NoteCreateView(CreateView):
     model = Note
@@ -75,7 +81,7 @@ class NoteDeleteView(DeleteView):
     model = Note
     success_url = reverse_lazy('note-list')
 
-    
+
 
 
 
